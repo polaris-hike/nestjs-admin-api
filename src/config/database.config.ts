@@ -9,7 +9,7 @@ export const database = (): TypeOrmModuleOptions => ({
     port: 3306,
     username: 'root',
     password: '123456',
-    database: '3r',
+    database: 'nest_admin_api',
     synchronize: true,
     autoLoadEntities: true,
 });
