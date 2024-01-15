@@ -1,15 +1,6 @@
-import {
-    Body,
-    Controller,
-    Get,
-    HttpCode,
-    HttpStatus,
-    Post,
-    Request,
-    ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, ValidationPipe } from '@nestjs/common';
 
-import { Guest } from '../decorators';
+import { Guest } from '../../core/decorators';
 import { CredentialDto, RegisterDto } from '../dtos/auth.dto';
 import { AuthService } from '../services/auth.service';
 
@@ -54,10 +45,5 @@ export class AuthController {
         data: CredentialDto,
     ) {
         return this.authService.signIn(data.credential, data.password);
-    }
-
-    @Get('profile')
-    getProfile(@Request() req: any) {
-        return req.user;
     }
 }
