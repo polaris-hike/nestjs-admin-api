@@ -8,7 +8,7 @@ import { AuthController } from './controllers/auth.controller';
 import { UserController } from './controllers/user.controller';
 import { UserEntity } from './entities';
 import { AuthService } from './services/auth.service';
-import { UsersService } from './services/users.service';
+import { UserService } from './services/user.service';
 import { UserSubscriber } from './subscribers';
 
 @Module({
@@ -21,7 +21,7 @@ import { UserSubscriber } from './subscribers';
         TypeOrmModule.forFeature([UserEntity]),
     ],
     controllers: [UserController, AuthController],
-    providers: [UsersService, AuthService, UserSubscriber],
-    exports: [UsersService, AuthService],
+    providers: [UserService, AuthService, UserSubscriber],
+    exports: [UserService, AuthService],
 })
 export class UsersModule {}

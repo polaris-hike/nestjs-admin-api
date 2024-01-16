@@ -8,7 +8,7 @@ import { database } from './config';
 import { CoffeesModule } from './modules/coffees/coffees.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { AuthGuard } from './modules/user/guards/auth.guard';
-import { UsersModule } from './modules/user/users.module';
+import { UsersModule } from './modules/user/user.module';
 
 @Module({
     imports: [CoffeesModule, DatabaseModule.forRoot(database), UsersModule],

@@ -6,17 +6,17 @@ import { decrypt } from '@/modules/user/helpers';
 
 import { RegisterDto } from '../dtos/auth.dto';
 
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
     constructor(
-        private usersService: UsersService,
+        private userService: UserService,
         private jwtService: JwtService,
     ) {}
 
     async signIn(username: string, pass: string): Promise<any> {
-        const user = await this.usersService.findOneByCredential(username, async (query) =>
+        const user = await this.userService.findOneByCredential(username, async (query) =>
             query.addSelect('users.password'),
         );
         if (!decrypt(pass, user?.password)) {
@@ -30,7 +30,7 @@ export class AuthService {
 
     async register(data: RegisterDto) {
         const { username, nickname, password } = data;
-        const user = await this.usersService.create({
+        const user = await this.userService.create({
             username,
             nickname,
             password,

@@ -13,7 +13,7 @@ import {
  * 用户模型
  */
 @Exclude()
-@Entity('users')
+@Entity('user')
 export class UserEntity {
     @Expose()
     @PrimaryColumn({ type: 'varchar', generated: 'uuid', length: 36 })
