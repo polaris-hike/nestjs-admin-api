@@ -32,7 +32,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Guest()
     @Post('login')
-    signIn(
+    async signIn(
         @Body(
             new ValidationPipe({
                 transform: true,
@@ -44,6 +44,6 @@ export class AuthController {
         )
         data: CredentialDto,
     ) {
-        return this.authService.signIn(data.credential, data.password);
+        return { token: await this.authService.signIn(data.credential, data.password) };
     }
 }

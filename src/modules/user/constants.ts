@@ -1,5 +1,6 @@
 export const jwtConstants = {
-    secret: 'DO NOT USE THIS VALUE. INSTEAD, CREATE A COMPLEX SECRET AND KEEP IT SAFE OUTSIDE OF THE SOURCE CODE.',
+    access_secret: 'my_access_secret',
+    refresh_secret: 'my_refresh_secret',
 };
 
 export const ALLOW_GUEST = 'allowGuest';

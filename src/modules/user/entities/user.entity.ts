@@ -5,9 +5,14 @@ import {
     CreateDateColumn,
     DeleteDateColumn,
     Entity,
+    JoinColumn,
+    OneToOne,
     PrimaryColumn,
+    Relation,
     UpdateDateColumn,
 } from 'typeorm';
+
+import { RefreshTokenEntity } from './refresh-token.entity';
 
 /**
  * 用户模型
@@ -61,4 +66,9 @@ export class UserEntity {
         comment: '删除时间',
     })
     deletedAt: Date;
+
+    @Expose()
+    @OneToOne(() => RefreshTokenEntity, (refreshToken) => refreshToken.user)
+    @JoinColumn()
+    refreshToken: Relation<RefreshTokenEntity>;
 }

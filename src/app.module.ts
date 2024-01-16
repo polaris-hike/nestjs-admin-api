@@ -7,7 +7,7 @@ import { AppService } from './app.service';
 import { database } from './config';
 import { CoffeesModule } from './modules/coffees/coffees.module';
 import { DatabaseModule } from './modules/database/database.module';
-import { AuthGuard } from './modules/user/guards/auth.guard';
+import { JwtGuard } from './modules/user/guards/auth.guard';
 import { UsersModule } from './modules/user/user.module';
 
 @Module({
@@ -17,7 +17,7 @@ import { UsersModule } from './modules/user/user.module';
         AppService,
         {
             provide: APP_GUARD,
-            useClass: AuthGuard,
+            useClass: JwtGuard,
         },
     ],
 })

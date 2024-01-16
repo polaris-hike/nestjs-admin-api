@@ -7,7 +7,9 @@ import { jwtConstants } from './constants';
 import { AuthController } from './controllers/auth.controller';
 import { UserController } from './controllers/user.controller';
 import { UserEntity } from './entities';
+import { RefreshTokenEntity } from './entities/refresh-token.entity';
 import { AuthService } from './services/auth.service';
+import { TokenService } from './services/token.service';
 import { UserService } from './services/user.service';
 import { UserSubscriber } from './subscribers';
 
@@ -15,13 +17,13 @@ import { UserSubscriber } from './subscribers';
     imports: [
         JwtModule.register({
             global: true,
-            secret: jwtConstants.secret,
-            signOptions: { expiresIn: '6000s' },
+            secret: jwtConstants.access_secret,
+            signOptions: { expiresIn: '30m' },
         }),
-        TypeOrmModule.forFeature([UserEntity]),
+        TypeOrmModule.forFeature([UserEntity, RefreshTokenEntity]),
     ],
     controllers: [UserController, AuthController],
-    providers: [UserService, AuthService, UserSubscriber],
-    exports: [UserService, AuthService],
+    providers: [UserService, AuthService, TokenService, UserSubscriber],
+    exports: [UserService, AuthService, TokenService],
 })
 export class UsersModule {}
