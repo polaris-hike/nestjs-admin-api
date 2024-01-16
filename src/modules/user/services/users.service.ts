@@ -4,10 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { QueryHook } from '../database/types';
+import { QueryHook } from '../../database/types';
 
-import { CreateUserDto } from './dtos/user.dto';
-import { UserEntity } from './entities';
+import { CreateUserDto } from '../dtos/user.dto';
+import { UserEntity } from '../entities';
 
 @Injectable()
 export class UsersService {

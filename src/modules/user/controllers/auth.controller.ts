@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, ValidationPipe } from '@nestjs/common';
 
-import { Guest } from '../../core/decorators';
+import { Guest } from '../decorators';
 import { CredentialDto, RegisterDto } from '../dtos/auth.dto';
 import { AuthService } from '../services/auth.service';
 

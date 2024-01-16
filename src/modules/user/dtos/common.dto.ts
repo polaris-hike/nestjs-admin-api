@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsOptional, Length } from 'class-validator';
 
-import { UserValidateGroups } from '@/modules/users/constants';
+import { UserValidateGroups } from '../types';
 
 /**
  * 用户模块DTO的通用基础字段

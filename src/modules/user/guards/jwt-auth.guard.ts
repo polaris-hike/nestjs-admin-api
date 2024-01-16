@@ -5,7 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { isNil } from 'lodash';
 import { ExtractJwt } from 'passport-jwt';
 
-import { ALLOW_GUEST } from '../constants';
+import { ALLOW_GUEST } from '@/modules/user/constants';
 
 /**
  * 用户JWT认证守卫
