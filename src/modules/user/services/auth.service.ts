@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, NotFoundException, Injectable } from '@nestjs/common';
 
 import { decrypt } from '@/modules/user/helpers';
 
@@ -16,10 +16,10 @@ export class AuthService {
 
     async signIn(username: string, pass: string): Promise<any> {
         const user = await this.userService.findOneByCredential(username, async (query) =>
-            query.addSelect('users.password'),
+            query.addSelect('user.password'),
         );
         if (!user) {
-            throw new ForbiddenException('用户不存在');
+            throw new NotFoundException('用户不存在');
         }
         if (!decrypt(pass, user.password)) {
             throw new ForbiddenException('密码错误');
