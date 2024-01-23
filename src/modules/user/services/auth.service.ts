@@ -1,36 +1,37 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-
-import { JwtService } from '@nestjs/jwt';
+import { ForbiddenException, NotFoundException, Injectable } from '@nestjs/common';
 
 import { decrypt } from '@/modules/user/helpers';
 
 import { RegisterDto } from '../dtos/auth.dto';
 
-import { UsersService } from './users.service';
+import { TokenService } from './token.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
     constructor(
-        private usersService: UsersService,
-        private jwtService: JwtService,
+        private userService: UserService,
+        private tokenService: TokenService,
     ) {}
 
     async signIn(username: string, pass: string): Promise<any> {
-        const user = await this.usersService.findOneByCredential(username, async (query) =>
-            query.addSelect('users.password'),
+        const user = await this.userService.findOneByCredential(username, async (query) =>
+            query.addSelect('user.password'),
         );
-        if (!decrypt(pass, user?.password)) {
-            throw new UnauthorizedException();
+        if (!user) {
+            throw new NotFoundException('用户不存在');
         }
-        const payload = { sub: user.id, username: user.username };
-        return {
-            access_token: await this.jwtService.signAsync(payload),
-        };
+        if (!decrypt(pass, user.password)) {
+            throw new ForbiddenException('密码错误');
+        }
+
+        const { accessToken } = await this.tokenService.generateAccessToken(user);
+        return accessToken;
     }
 
     async register(data: RegisterDto) {
         const { username, nickname, password } = data;
-        const user = await this.usersService.create({
+        const user = await this.userService.create({
             username,
             nickname,
             password,
