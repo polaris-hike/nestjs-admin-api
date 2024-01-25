@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { isNil } from 'lodash';
+import { isNil, omit } from 'lodash';
 
 import { EntityNotFoundError } from 'typeorm';
 
-import { CreateCategoryDto } from './dtos/orgCategoty.dto';
+import { CreateCategoryDto, UpdateCategoryDto } from './dtos/orgCategoty.dto';
 import { OrgCategoryEntity } from './entities/org.entity';
 import { CategoryRepository } from './repositories/org.repository';
 
@@ -46,21 +46,21 @@ export class OrgService {
     //  * 更新分类
     //  * @param data
     //  */
-    // async update(data: UpdateCategoryDto) {
-    //     await this.repository.update(data.id, omit(data, ['id', 'parent']));
-    //     const item = await this.detail(data.id);
-    //     const parent = await this.getParent(item.parent?.id, data.parent);
-    //     const shouldUpdateParent =
-    //         (!isNil(item.parent) && !isNil(parent) && item.parent.id !== parent.id) ||
-    //         (isNil(item.parent) && !isNil(parent)) ||
-    //         (!isNil(item.parent) && isNil(parent));
-    //     // 父分类单独更新
-    //     if (parent !== undefined && shouldUpdateParent) {
-    //         item.parent = parent;
-    //         await this.repository.save(item, { reload: true });
-    //     }
-    //     return item;
-    // }
+    async update(data: UpdateCategoryDto) {
+        await this.repository.update(data.id, omit(data, ['id', 'parent']));
+        const item = await this.detail(data.id);
+        const parent = await this.getParent(item.parent?.id, data.parent);
+        const shouldUpdateParent =
+            (!isNil(item.parent) && !isNil(parent) && item.parent.id !== parent.id) ||
+            (isNil(item.parent) && !isNil(parent)) ||
+            (!isNil(item.parent) && isNil(parent));
+        // 父分类单独更新
+        if (parent !== undefined && shouldUpdateParent) {
+            item.parent = parent;
+            await this.repository.save(item, { reload: true });
+        }
+        return item;
+    }
 
     /**
      * 删除分类
