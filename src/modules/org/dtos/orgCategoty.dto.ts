@@ -1,5 +1,7 @@
+import { PartialType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
+    IsDefined,
     IsNotEmpty,
     IsNumber,
     IsOptional,
@@ -38,8 +40,8 @@ export class CreateCategoryDto {
 // /**
 //  * 分类更新验证
 //  */
-// export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
-//     @IsUUID(undefined, { groups: ['update'], message: 'ID格式错误' })
-//     @IsDefined({ groups: ['update'], message: 'ID必须指定' })
-//     id: string;
-// }
+export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
+    @IsUUID(undefined, { groups: ['update'], message: 'ID格式错误' })
+    @IsDefined({ groups: ['update'], message: 'ID必须指定' })
+    id: string;
+}
