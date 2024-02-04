@@ -4,17 +4,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DatabaseModule } from '../database/database.module';
 
+import { OrgController } from './controllers/org.controller';
+import { OrgStationController } from './controllers/orgStation.controller';
 import { OrgCategoryEntity } from './entities/org.entity';
-import { OrgController } from './org.controller';
-import { OrgService } from './org.service';
+import { OrgStationEntity } from './entities/orgStation.entity';
 import { CategoryRepository } from './repositories/org.repository';
+import { OrgService } from './services/org.service';
+import { OrgStationService } from './services/orgStation.service ';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([OrgCategoryEntity]),
+        TypeOrmModule.forFeature([OrgCategoryEntity, OrgStationEntity]),
         DatabaseModule.forRepository([CategoryRepository]),
     ],
-    controllers: [OrgController],
-    providers: [OrgService],
+    controllers: [OrgController, OrgStationController],
+    providers: [OrgService, OrgStationService],
 })
 export class OrgModule {}

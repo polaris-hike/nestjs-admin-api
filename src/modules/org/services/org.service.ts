@@ -4,9 +4,9 @@ import { isNil, omit } from 'lodash';
 
 import { EntityNotFoundError } from 'typeorm';
 
-import { CreateCategoryDto, UpdateCategoryDto } from './dtos/orgCategoty.dto';
-import { OrgCategoryEntity } from './entities/org.entity';
-import { CategoryRepository } from './repositories/org.repository';
+import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/orgCategoty.dto';
+import { OrgCategoryEntity } from '../entities/org.entity';
+import { CategoryRepository } from '../repositories/org.repository';
 
 @Injectable()
 export class OrgService {
