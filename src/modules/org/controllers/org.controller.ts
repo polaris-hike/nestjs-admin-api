@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 
-import { CreateCategoryDto, UpdateCategoryDto } from './dtos/orgCategoty.dto';
-import { OrgService } from './org.service';
+import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/orgCategoty.dto';
+import { OrgService } from '../services/org.service';
 
 @Controller('org')
 export class OrgController {
